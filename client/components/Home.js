@@ -1,7 +1,17 @@
+import { useState } from "react";
+
 import StinkheadTitle from "../../public/stinkhead_title.svg";
 import JoinCreate from "./JoinCreate";
 
+import generateUsername from "../helpers/generateUsername";
+
 const Home = () => {
+  const [username, setUsername] = useState(generateUsername());
+
+  const handleRandom = () => {
+    setUsername(generateUsername());
+  };
+
   return (
     <div>
       <div id="home-wrapper">
@@ -14,8 +24,10 @@ const Home = () => {
             aria-label="username"
             placeholder="Username"
             name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-          <button type="button" className="button-light">
+          <button type="button" className="button-light" onClick={handleRandom}>
             Random
           </button>
         </div>
