@@ -18,16 +18,20 @@ export const generateUsername = () => {
   return caseSenseArr.join("");
 };
 
-export const validateUsername = (username) => {
-  const acceptedChars = "abcdefghijklmnopqrstuvwxyz_-1234567890";
+export const invalidateUsername = (username) => {
+  const acceptedChars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-1234567890";
 
   if (username.length < 4) return "Username must be at least 4 characters.";
 
   for (let i = 0; i < username.length; i++) {
     if (username[i] === " ") return "Username may not contain spaces.";
-    if (!acceptedChars.contains(username[i]))
+    if (!acceptedChars.includes(username[i])) {
+      console.log(username[i]);
+      console.log("check");
       return "Username may only contain letters, numbers and '-' or '_'.";
+    }
   }
 
-  return false;
+  return "";
 };

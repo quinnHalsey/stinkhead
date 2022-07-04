@@ -70,3 +70,28 @@ button {
   margin: 0 auto;
   justify-content: center;
 }
+
+#username-input-wrapper {
+  height: 100%;
+  position: relative;
+}
+
+#validation-wrapper {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  bottom: 5px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#invalid-message {
+  position: absolute;
+  left: 5px;
+  bottom: -18px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  width: 350px;
+}
