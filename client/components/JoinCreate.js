@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-import JoinForm from "./JoinForm";
+import CreateGame from "./CreateGame";
 import { FcCheckmark, FcCancel } from "react-icons/fc";
 
 import {
@@ -10,17 +9,15 @@ import {
 
 const JoinCreate = () => {
   const [username, setUsername] = useState(generateUsername());
-
   const [invalidUsername, setInvalidUsername] = useState("");
-
-  const [joinHide, setJoinHide] = useState(true);
-  console.log(username, "username");
+  const [roomCode, setRoomCode] = useState("");
+  const [revealCreate, setRevealCreate] = useState(true);
 
   const handleNameChange = (e) => {
     const input = e.target.value;
     setUsername(input);
     const invalidMessage = invalidateUsername(input);
-    console.log(invalidMessage, "invalid message");
+
     if (invalidMessage.length) setInvalidUsername(invalidMessage);
     else setInvalidUsername("");
   };
@@ -30,12 +27,10 @@ const JoinCreate = () => {
     if (invalidUsername) setInvalidUsername("");
   };
 
-  const revealJoin = () => {};
-
   return (
     <>
-      <div id="username-input">
-        <div id="username-input-wrapper">
+      <div className="input-button">
+        <div className="input-wrapper">
           <input
             type="text"
             aria-label="username"
@@ -58,14 +53,29 @@ const JoinCreate = () => {
           Random
         </button>
       </div>
-      <div id="create-buttons">
-        <button type="button" className="button-dark" onClick={revealJoin}>
+      <div className="input-button">
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder="Room Code"
+            name="roomCode"
+            value={roomCode}
+            onChange={(e) => setRoomCode(e.target.value)}
+            maxLength={5}
+          />
+        </div>
+        <button type="button" className="button-light" onClick={handleRandom}>
           Join Game
         </button>
-        <button type="button" className="button-dark">
-          Create Game
-        </button>
       </div>
+      <button
+        type="button"
+        className="button-dark"
+        onClick={() => setRevealCreate(true)}
+      >
+        Create Game
+      </button>
+      {revealCreate && <CreateGame />}
     </>
   );
 };
