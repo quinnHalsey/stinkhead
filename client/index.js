@@ -1,7 +1,13 @@
 import { createRoot } from "react-dom/client";
-import Home from "./components/Home";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./components/App";
 
 const container = document.getElementById("app");
 const root = createRoot(container);
 
-root.render(<Home />);
+root.render(
+  <BrowserRouter>
+    <App history={history} />
+  </BrowserRouter>
+);

@@ -2,6 +2,7 @@
 
 body {
   background-color: #3aa7a0;
+  margin: 0;
 }
 
 input {
@@ -223,4 +224,65 @@ input[type="radio"]:checked {
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+
+/* --------- GAME ROOM -------- */
+
+#room {
+  box-sizing: border-box;
+  background-color: #3aa7a0;
+  border: 20px solid #f7c9c0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#room-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 20px;
+  width: calc(100% - 40px);
+  height: 80px;
+  background-color: #f7c9c0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Noto Sans", sans-serif;
+}
+
+#room-code {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.player-info {
+  width: 150px;
+  text-align: center;
+}
+
+.player-order {
+  font-size: small;
+  font-weight: 300;
+}
+
+.waiting {
+  color: rgba(63, 63, 63, 0.387);
+}
+
+.player-name {
+  font-weight: 600;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#buttons > div {
+  font-weight: bold;
+}
+
+#reset {
+  transform: rotateY(180deg);
 }
