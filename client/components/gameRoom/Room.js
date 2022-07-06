@@ -15,6 +15,9 @@ const dummyUser = {
   turnOrder: 1,
 };
 
+//TODO: add logic to remove 'Waiting' players when game is started
+//TODO: test to make sure usernames will fit/ create min-width for total game room
+
 const Room = () => {
   return (
     <div id="room">
