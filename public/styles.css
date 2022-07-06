@@ -22,6 +22,16 @@ input:focus {
   outline: 1px solid #f34c50;
 }
 
+fieldset {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  min-inline-size: 0;
+}
+
 button {
   min-width: 100px;
   min-height: 2.5rem;
@@ -107,7 +117,7 @@ button {
 
 #create-form {
   position: absolute;
-  width: 600px;
+  width: 560px;
   height: 360px;
   background-color: #f7c9c0;
   border-radius: 20px;
@@ -115,7 +125,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 30px;
+  gap: 20px;
 }
 
 #room-code {
@@ -133,36 +144,83 @@ button {
 
 #room-options {
   display: flex;
+  flex-direction: column;
   width: 100%;
   font-family: "Noto Sans", sans-serif;
 }
 
-#room-options > div {
-  border: 1px solid black;
-  width: 300px;
-}
-
 #room-options:first-child {
-  width: 300px;
+  width: 200px;
 }
 
-.column {
+.row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 20px;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-.column div {
+.row p {
+  font-weight: bold;
+  width: 120px;
+}
+
+.row div {
   display: flex;
+  width: 130px;
   align-items: center;
   gap: 10px;
 }
 
-.column input {
+.row input {
   width: 20px;
   min-width: 10px;
 }
 
-h3 {
+input[type="radio"]:checked {
+  outline: none;
+  accent-color: #f34c50;
+}
+
+.radio:focus {
+  outline: none;
+}
+
+#checkboxes div {
+  width: auto;
+}
+
+#checkboxes {
+  justify-content: center;
+  gap: 40px;
+  font-weight: bold;
+}
+
+#checkboxes input:checked {
+  accent-color: #f34c50;
+}
+
+#checkboxes input:focus {
+  outline: none;
+}
+
+#start-button {
+  margin-top: 20px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: #f34c50;
+  border: none;
   margin: 0;
-  text-align: center;
+}
+
+#close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }

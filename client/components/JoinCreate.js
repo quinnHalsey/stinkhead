@@ -7,11 +7,13 @@ import {
   invalidateUsername,
 } from "../helpers/usernameHelpers";
 
+import { generateRoomCode } from "../helpers/gameHelpers";
+
 const JoinCreate = () => {
   const [username, setUsername] = useState(generateUsername());
   const [invalidUsername, setInvalidUsername] = useState("");
   const [roomCode, setRoomCode] = useState("");
-  const [revealCreate, setRevealCreate] = useState(true);
+  const [revealCreate, setRevealCreate] = useState(false);
 
   const handleNameChange = (e) => {
     const input = e.target.value;
@@ -25,6 +27,10 @@ const JoinCreate = () => {
   const handleRandom = () => {
     setUsername(generateUsername());
     if (invalidUsername) setInvalidUsername("");
+  };
+
+  const handleCloseJoin = () => {
+    setRevealCreate(false);
   };
 
   return (
@@ -75,7 +81,13 @@ const JoinCreate = () => {
       >
         Create Game
       </button>
-      {revealCreate && <CreateGame />}
+      {revealCreate && (
+        <CreateGame
+          host={username}
+          roomCode={generateRoomCode()}
+          handleCloseJoin={handleCloseJoin}
+        />
+      )}
     </>
   );
 };
