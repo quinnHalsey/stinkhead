@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
   background-color: #3aa7a0;
 }
@@ -18,6 +20,16 @@ input:hover,
 
 input:focus {
   outline: 1px solid #f34c50;
+}
+
+fieldset {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  min-inline-size: 0;
 }
 
 button {
@@ -57,6 +69,13 @@ button {
 
 #title {
   min-width: 600px;
+  margin-bottom: 20px;
+}
+
+#home-input {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 #create-buttons {
@@ -65,8 +84,143 @@ button {
   gap: 20px;
 }
 
-#username-input {
+.input-button {
   display: flex;
   margin: 0 auto;
   justify-content: center;
+}
+
+.input-wrapper {
+  height: 100%;
+  position: relative;
+}
+
+#validation-wrapper {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  bottom: 5px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#invalid-message {
+  position: absolute;
+  left: 5px;
+  bottom: -18px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  width: 350px;
+}
+
+#create-form {
+  position: absolute;
+  width: 560px;
+  height: 360px;
+  background-color: #f7c9c0;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgba(63, 63, 63, 0.387);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
+}
+
+#room-code {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+#subheading {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 100;
+  margin-bottom: -20px;
+}
+
+#room-options {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: "Noto Sans", sans-serif;
+}
+
+#room-options:first-child {
+  width: 200px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row p {
+  font-weight: bold;
+  width: 120px;
+}
+
+.row div {
+  display: flex;
+  width: 130px;
+  align-items: center;
+  gap: 10px;
+}
+
+.row input {
+  width: 20px;
+  min-width: 10px;
+}
+
+input[type="radio"]:checked {
+  outline: none;
+  accent-color: #f34c50;
+}
+
+.radio:focus {
+  outline: none;
+}
+
+#checkboxes div {
+  width: auto;
+}
+
+#checkboxes {
+  justify-content: center;
+  gap: 40px;
+  font-weight: bold;
+}
+
+#checkboxes input:checked {
+  accent-color: #f34c50;
+}
+
+#checkboxes input:focus {
+  outline: none;
+}
+
+#start-button {
+  margin-top: 20px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: #f34c50;
+  border: none;
+  margin: 0;
+}
+
+#close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
