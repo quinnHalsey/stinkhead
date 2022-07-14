@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
@@ -24,6 +24,8 @@ const dummyUser = {
 
 const Room = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const leaveRef = useRef();
   const resetRef = useRef();
 
@@ -31,9 +33,16 @@ const Room = () => {
 
   const handleClickLeave = () => {
     if (confirmMessage === "Leave game?") {
-      //TODO: remove game/info from database
+      //TODO: remove game/info from database if Host leaves
+      // Remove player from DB/game if player leaves
       navigate("/");
     } else setConfirmMessage("Leave game?");
+  };
+
+  const handleClickReset = () => {
+    if (confirmMessage === "Reset?") {
+      console.log("Clicked reset!");
+    } else setConfirmMessage("Reset?");
   };
 
   useEffect(() => {
@@ -56,7 +65,8 @@ const Room = () => {
     <div id="room">
       <div id="room-header">
         <div id="header-left">
-          <div id="room-code">4JXZL</div>
+          {/*TODO: replace room code with info from DB*/}
+          <div id="room-code">{location.pathname.slice(1, 6)}</div>
           <div id="all-players-info">
             {dummyPlayers.map((player, idx) => {
               return (
@@ -84,7 +94,7 @@ const Room = () => {
               id="reset"
               ref={resetRef}
               className="icon-button"
-              onClick={() => setConfirmMessage("Reset?")}
+              onClick={handleClickReset}
             >
               <GrPowerReset
                 size={36}
