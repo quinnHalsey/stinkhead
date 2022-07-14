@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
+  const navigate = useNavigate();
+
   const [autoPickup, setAutoPickup] = useState(true);
   const [publicGame, setPublicGame] = useState(false);
   const [turnTimeout, setTurnTimeout] = useState(5);
@@ -17,11 +20,12 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
       roomCode,
     };
     console.log("Create game:", game);
+    navigate(`/${roomCode}`);
   };
 
   return (
     <div id="create-form">
-      <div id="room-code">
+      <div id="room-code-home">
         <div id="subheading">ROOM CODE</div>
         <div>{roomCode}</div>
       </div>

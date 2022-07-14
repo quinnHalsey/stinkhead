@@ -2,6 +2,7 @@ import StinkheadTitle from "../../public/stinkhead_title.svg";
 import JoinCreate from "./JoinCreate";
 
 import generateUsername from "../helpers/usernameHelpers";
+import Test from "./gameRoom/Room";
 
 const Home = () => {
   return (
