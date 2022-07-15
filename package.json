@@ -7,7 +7,7 @@
     "build": "webpack -w --config webpack.config.js",
     "start": "node server",
     "start-dev": "npm run build & nodemon server",
-    "seed": "node db/seed"
+    "seed": "node server/db/seed.js"
   },
   "author": "",
   "license": "ISC",
