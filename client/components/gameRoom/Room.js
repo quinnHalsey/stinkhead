@@ -1,3 +1,5 @@
+import socket from "socket.io-client";
+
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -31,6 +33,12 @@ const Room = () => {
 
   const [confirmMessage, setConfirmMessage] = useState("");
 
+  let gameSocket;
+
+  // useEffect(() => {
+  //   gameSocket = socket(ENDPOINT);
+  // }, []);
+
   const handleClickLeave = () => {
     if (confirmMessage === "Leave game?") {
       //TODO: remove game/info from database if Host leaves
@@ -46,6 +54,7 @@ const Room = () => {
   };
 
   useEffect(() => {
+    const clientSocket = socket(window.location.origin);
     let ref = confirmMessage === "Leave game?" ? leaveRef : resetRef;
 
     const detectOutsideClick = (event) => {

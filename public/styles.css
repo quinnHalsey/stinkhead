@@ -240,7 +240,7 @@ input[type="radio"]:checked {
   box-sizing: border-box;
   background-color: #3aa7a0;
   border: 20px solid #f7c9c0;
-  width: 100vw;
+  min-width: fit-content;
   height: 100vh;
 }
 
