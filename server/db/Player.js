@@ -1,9 +1,9 @@
-const Sequelize = require("sequelize");
-const db = require("./database");
+const { DataTypes } = require("sequelize");
+const db = require("./db");
 
 const Player = db.define("player", {
   username: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
     validate: {
@@ -11,30 +11,31 @@ const Player = db.define("player", {
     },
   },
   computerPlayer: {
-    type: Sequelize.BOOLEAN,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
+    defaultValue: false,
   },
   turnOrder: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     validate: {
       min: 1,
       max: 4,
     },
   },
   status: {
-    type: Sequelize.ENUM("SHITHEAD", "WINNER", "ACTIVE"),
+    type: DataTypes.ENUM("SHITHEAD", "WINNER", "ACTIVE"),
     defaultValue: "ACTIVE",
   },
   inHand: {
-    type: Sequelize.ARRAY,
+    type: DataTypes.ARRAY(DataTypes.JSON),
     defaultValue: [],
   },
   faceUp: {
-    type: Sequelize.ARRAY,
+    type: DataTypes.ARRAY(DataTypes.JSON),
     defaultValue: [],
   },
   faceDown: {
-    type: Sequelize.ARRAY,
+    type: DataTypes.ARRAY(DataTypes.JSON),
     defaultValue: [],
   },
 });
