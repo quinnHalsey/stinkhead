@@ -1,19 +1,18 @@
-const db = require("./db");
+const db = require("./database");
 const Player = require("./Player");
-const GameRoom = require("./GameRoom");
 
 const seed = async () => {
   //TODO: remove force:true for production
   await db.sync({ force: true });
-  // await Promise.all([
-  //   Player.create({ username: "cody" }),
-  //   Player.create({
-  //     username: "murphy",
-  //   }),
-  //   Player.create({
-  //     username: "GraceHopper",
-  //   }),
-  // ]);
+  await Promise.all([
+    Player.create({ username: "cody" }),
+    Player.create({
+      username: "murphy",
+    }),
+    Player.create({
+      username: "GraceHopper",
+    }),
+  ]);
   console.log("DB synced!");
 };
 

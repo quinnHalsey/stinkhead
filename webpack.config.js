@@ -1,5 +1,4 @@
 const path = require("path");
-const nodeExternals = require("webpack-node-externals");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -36,5 +35,4 @@ module.exports = {
       template: path.resolve(__dirname, "public", "index.html"),
     }),
   ],
-  externals: [nodeExternals()],
 };

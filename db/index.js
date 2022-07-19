@@ -1,11 +1,9 @@
-const db = require("./db");
+const db = require("./database");
 const Player = require("./Player");
-const GameRoom = require("./GameRoom");
 
 module.exports = {
   db,
   models: {
     Player,
-    GameRoom,
   },
 };

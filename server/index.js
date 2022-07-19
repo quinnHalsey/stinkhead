@@ -7,6 +7,7 @@ const socket = require("socket.io");
 const path = require("path");
 const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
+const { io } = require("socket.io-client");
 
 const app = express();
 
@@ -32,7 +33,9 @@ const server = app.listen(port, () => {
 const serverSocket = socket(server);
 
 serverSocket.on("connection", (socket) => {
-  // Called for EACH browser that connects to server
-  // Creates unique ID for each socket connection
+  socket.on("join", async (room) => {
+    socket.join(room);
+    io.emit("roomJoined", room);
+  });
   console.log(`Connection from client ${socket.id}`);
 });
