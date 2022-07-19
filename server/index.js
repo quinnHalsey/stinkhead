@@ -39,3 +39,5 @@ serverSocket.on("connection", (socket) => {
   });
   console.log(`Connection from client ${socket.id}`);
 });
+
+module.exports = app;

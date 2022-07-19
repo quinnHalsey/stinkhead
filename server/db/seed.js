@@ -9,15 +9,6 @@ const seed = async () => {
   const player = await Player.create({ username: "halsey" });
   const room = await GameRoom.create({ roomCode: "XE45K" });
   await room.addPlayer(player);
-  // await Promise.all([
-  //   Player.create({ username: "cody" }),
-  //   Player.create({
-  //     username: "murphy",
-  //   }),
-  //   Player.create({
-  //     username: "GraceHopper",
-  //   }),
-  // ]);
   console.log("DB synced!");
 };
 
@@ -37,3 +28,6 @@ const runSeed = async () => {
 if (module === require.main) {
   runSeed();
 }
+
+//for testing
+module.exports = seed;
