@@ -12,6 +12,7 @@ router.post("/gameRoom", async (req, res, next) => {
     //   where: { roomCode: newGameRoom.roomCode },
     //   include: { model: Player },
     // });
+    console.log(newGameRoom, "new room in API route");
     res.send(newGameRoom);
   } catch (err) {
     console.error(err);
