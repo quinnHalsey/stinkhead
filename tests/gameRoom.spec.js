@@ -4,14 +4,24 @@ const { db, models: gameRoom } = require("../server/db");
 const seed = require("../server/db/seed");
 const app = require("../server");
 
-const app = describe("Game Room routes", () => {
+describe("Game Room routes", () => {
   beforeEach(async () => {
     await seed();
   });
 
   describe("/api/gameRoom", () => {
     it("POST /api/gameRoom", async () => {
-      const res = await request(app).post({ roomCode: "12345" });
+      // const newPlayer = await request(app).post({
+      //   username: "SlyPickle",
+      //   turnOrder: 1,
+      // });
+      const res = await request(app).post("/api/gameRoom ", {
+        roomCode: "12345",
+      });
+      console.log(res.body, "response");
+      expect(res.body).to.be.an("object");
+      expect(res.body.players).to.be.an("array");
+      expect(res.body.players[0].username).to.be("SlyPickle");
     });
   });
 });
