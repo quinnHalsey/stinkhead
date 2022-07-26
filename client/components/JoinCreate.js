@@ -83,7 +83,7 @@ const JoinCreate = () => {
       </button>
       {revealCreate && (
         <CreateGame
-          host={username}
+          username={username}
           roomCode={generateRoomCode()}
           handleCloseJoin={handleCloseJoin}
         />
