@@ -39,4 +39,8 @@ const GameRoom = db.define("gameRoom", {
   },
 });
 
+GameRoom.prototype.restartGame = () => {
+  this.gameStatus = "LOBBY";
+};
+
 module.exports = GameRoom;

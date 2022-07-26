@@ -1,24 +1,22 @@
+import axios from "axios";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
   const navigate = useNavigate();
 
-  const [autoPickup, setAutoPickup] = useState(true);
   // const [publicGame, setPublicGame] = useState(false);
+  const [autoPickup, setAutoPickup] = useState(true);
   const [turnTimeout, setTurnTimeout] = useState(300);
   const [maxPlayers, setMaxPlayers] = useState(4);
 
   const handleCreateGame = async () => {
-    console.log(turnTimeout, "turn timeout");
-    console.log(roomCode, "room code");
     const host = {
       username,
       turnOrder: 1,
     };
-    console.log(host, "host");
+
     const game = {
       autoPickup,
       turnTimeout,
@@ -31,8 +29,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
       player: host,
     });
 
-    console.log(newRoom);
-    navigate(`/${roomCode}`);
+    if (newRoom) navigate(`/${newRoom.roomCode}`);
   };
 
   return (
@@ -41,6 +38,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
         <div id="subheading">ROOM CODE</div>
         <div>{roomCode}</div>
       </div>
+
       <div id="room-options">
         <fieldset
           className="row"
@@ -79,7 +77,9 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
             <label htmlFor="10">10 Minutes</label>
           </div>
         </fieldset>
+
         <hr className="divider" />
+
         <fieldset
           className="row"
           onChange={(e) => setMaxPlayers(Number(e.target.value))}
@@ -117,7 +117,9 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
             <label htmlFor={4}>4 Players</label>
           </div>
         </fieldset>
+
         <hr className="divider" />
+
         <div id="checkboxes" className="row">
           <div>
             <label htmlFor="auto-pickup">Auto Pick-up</label>
@@ -139,6 +141,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
           </div> */}
         </div>
       </div>
+
       <div>
         <button
           id="start-button"
