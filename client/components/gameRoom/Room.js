@@ -7,13 +7,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
 
-const dummyPlayers = [
-  { id: "1", username: "SloppyMagnolia", computerPlayer: false, turnOrder: 1 },
-  { id: "2", username: "AngryPlatypus", computerPlayer: false, turnOrder: 2 },
-  { id: "3", username: "[SlyNugget]", computerPlayer: true, turnOrder: 3 },
-  null,
-];
-
 const dummyUser = {
   id: "1",
   username: "SloppyMagnolia",
@@ -27,16 +20,27 @@ const dummyUser = {
 const Room = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname, "location");
 
   const leaveRef = useRef();
   const resetRef = useRef();
 
   const [confirmMessage, setConfirmMessage] = useState("");
   const [gameData, setGameData] = useState({});
-
-  let gameSocket;
+  const [players, setPlayers] = useState(Array(4).fill(null));
+  console.log(players);
   console.log(gameData);
+  useEffect(() => {
+    const fillPlayers = () => {
+      const playersData = gameData.players;
+      const playersArray = [];
+      for (let i = 0; i < gameData.maxPlayers; i++) {
+        if (playersData[i]) playersArray.push(playersData[i]);
+        else playersArray.push(null);
+      }
+      setPlayers(playersArray);
+    };
+    if (gameData.players) fillPlayers();
+  }, [gameData]);
 
   useEffect(() => {
     const getGame = async () => {
@@ -48,11 +52,12 @@ const Room = () => {
     if (!gameData.id && location.pathname.slice(1)) getGame();
   }, [location]);
 
+  // let gameSocket;
   // useEffect(() => {
   //   gameSocket = socket(ENDPOINT);
   // }, []);
 
-  const handleClickLeave = () => {
+  const handleClickLeave = async () => {
     if (confirmMessage === "Leave game?") {
       setConfirmMessage("");
       //TODO: remove game/info from database if Host leaves
@@ -85,62 +90,68 @@ const Room = () => {
     return () => document.removeEventListener("click", detectOutsideClick);
   }, [confirmMessage]);
 
-  return (
-    <div id="room">
-      <div id="room-header">
-        <div id="header-left">
-          {/*TODO: replace room code with info from DB*/}
-          <div id="room-code">{location.pathname.slice(1, 6)}</div>
-          <div id="all-players-info">
-            {dummyPlayers.map((player, idx) => {
-              return (
-                <div key={idx} className="player-info" id={`player${idx + 1}`}>
+  if (gameData.id) {
+    return (
+      <div id="room">
+        <div id="room-header">
+          <div id="header-left">
+            {/*TODO: replace room code with info from DB*/}
+            <div id="room-code">{location.pathname.slice(1, 6)}</div>
+            <div id="all-players-info">
+              {players.map((player, idx) => {
+                return (
                   <div
-                    className={player ? `player-name` : `player-name waiting`}
+                    key={idx}
+                    className="player-info"
+                    id={`player${idx + 1}`}
                   >
-                    {player ? player.username : "Waiting..."}
+                    <div
+                      className={player ? `player-name` : `player-name waiting`}
+                    >
+                      {player ? player.username : "Waiting..."}
+                    </div>
+                    <div className="player-order">
+                      {player && player.turnOrder === "1"
+                        ? "HOST"
+                        : `PLAYER ${idx + 1}`}
+                    </div>
                   </div>
-                  <div className="player-order">
-                    {player && player.turnOrder === 1
-                      ? "HOST"
-                      : `PLAYER ${idx + 1}`}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div id="buttons">
-          <div id="confirm-message">{confirmMessage}</div>
+          <div id="buttons">
+            <div id="confirm-message">{confirmMessage}</div>
 
-          {dummyUser.turnOrder === 1 && (
+            {dummyUser.turnOrder === 1 && (
+              <div
+                id="reset"
+                ref={resetRef}
+                className="icon-button"
+                onClick={handleClickReset}
+              >
+                <GrPowerReset
+                  size={36}
+                  className={confirmMessage === "Reset?" ? "warning" : ""}
+                />
+              </div>
+            )}
             <div
-              id="reset"
-              ref={resetRef}
+              id="end-room"
+              ref={leaveRef}
               className="icon-button"
-              onClick={handleClickReset}
+              onClick={handleClickLeave}
             >
-              <GrPowerReset
+              <AiOutlineCloseCircle
                 size={36}
-                className={confirmMessage === "Reset?" ? "warning" : ""}
+                className={confirmMessage === "Leave game?" ? "warning" : ""}
               />
             </div>
-          )}
-          <div
-            id="end-room"
-            ref={leaveRef}
-            className="icon-button"
-            onClick={handleClickLeave}
-          >
-            <AiOutlineCloseCircle
-              size={36}
-              className={confirmMessage === "Leave game?" ? "warning" : ""}
-            />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Room;
