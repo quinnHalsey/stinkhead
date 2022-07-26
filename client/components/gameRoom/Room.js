@@ -45,7 +45,7 @@ const Room = () => {
       );
       setGameData(game);
     };
-    if (!gameData.id) getGame();
+    if (!gameData.id && location.pathname.slice(1)) getGame();
   }, [location]);
 
   // useEffect(() => {
