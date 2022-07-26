@@ -4,6 +4,19 @@ const {
 } = require("../db/index");
 const router = express.Router();
 
+router.get("/:code", async (req, res, next) => {
+  try {
+    const code = req.params.code;
+    const room = await GameRoom.findOne({
+      where: { roomCode: code },
+      include: { model: Player },
+    });
+    res.send(room);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   const { gameRoom, player } = req.body;
   try {

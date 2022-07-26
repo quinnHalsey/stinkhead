@@ -8,8 +8,12 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
 
   // const [publicGame, setPublicGame] = useState(false);
   const [autoPickup, setAutoPickup] = useState(true);
-  const [turnTimeout, setTurnTimeout] = useState(300);
+  // const [turnTimeout, setTurnTimeout] = useState(300);
   const [maxPlayers, setMaxPlayers] = useState(4);
+
+  const [turnTimeout, setTurnTimeout] = useState(300);
+
+  console.log(turnTimeout, "turnTimeout");
 
   const handleCreateGame = async () => {
     const host = {
@@ -44,6 +48,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
           className="row"
           onChange={(e) => setTurnTimeout(Number(e.target.value))}
           name="times"
+          radioGroup="timeout"
         >
           <p>Turn Timeout</p>
           <div>
@@ -52,7 +57,8 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="timeout"
               value={180}
-              checked={turnTimeout === 160}
+              onChange={() => console.log("changed 3 mins")}
+              checked={turnTimeout === 180}
             />
             <label htmlFor="3">3 Minutes</label>
           </div>
@@ -62,6 +68,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="timeout"
               value={300}
+              onChange={() => console.log("changed 300")}
               checked={turnTimeout === 300}
             />
             <label htmlFor="5">5 Minutes</label>
@@ -72,6 +79,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="timeout"
               value={600}
+              onChange={() => console.log("changed 600")}
               checked={turnTimeout === 600}
             />
             <label htmlFor="10">10 Minutes</label>
@@ -92,6 +100,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="players"
               value={2}
+              onChange={() => console.log("changed 2 players")}
               checked={maxPlayers === 2}
             />
             <label htmlFor={2}>2 Players</label>
@@ -102,6 +111,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="players"
               value={3}
+              onChange={() => console.log("changed 3 players")}
               checked={maxPlayers === 3}
             />
             <label htmlFor={3}>3 Players</label>
@@ -112,6 +122,7 @@ const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
               type="radio"
               name="players"
               value={4}
+              onChange={() => console.log("changed 4 players")}
               checked={maxPlayers === 4}
             />
             <label htmlFor={4}>4 Players</label>

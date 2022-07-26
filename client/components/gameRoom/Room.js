@@ -1,4 +1,5 @@
 import socket from "socket.io-client";
+import axios from "axios";
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -22,18 +23,30 @@ const dummyUser = {
 
 //TODO: add logic to remove 'Waiting' players when game is started
 //TODO: test to make sure usernames will fit/ create min-width for total game room
-//TODO: add message to confirm reset/leave/end game buttons
 
 const Room = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location.pathname, "location");
 
   const leaveRef = useRef();
   const resetRef = useRef();
 
   const [confirmMessage, setConfirmMessage] = useState("");
+  const [gameData, setGameData] = useState({});
 
   let gameSocket;
+  console.log(gameData);
+
+  useEffect(() => {
+    const getGame = async () => {
+      const { data: game } = await axios.get(
+        `/api/gameRoom/${location.pathname.slice(1)}`
+      );
+      setGameData(game);
+    };
+    if (!gameData.id) getGame();
+  }, [location]);
 
   // useEffect(() => {
   //   gameSocket = socket(ENDPOINT);
@@ -41,6 +54,7 @@ const Room = () => {
 
   const handleClickLeave = () => {
     if (confirmMessage === "Leave game?") {
+      setConfirmMessage("");
       //TODO: remove game/info from database if Host leaves
       // Remove player from DB/game if player leaves
       navigate("/");
@@ -49,6 +63,7 @@ const Room = () => {
 
   const handleClickReset = () => {
     if (confirmMessage === "Reset?") {
+      setConfirmMessage("");
       console.log("Clicked reset!");
     } else setConfirmMessage("Reset?");
   };
