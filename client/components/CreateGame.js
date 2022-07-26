@@ -1,25 +1,37 @@
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
+const CreateGame = ({ username, roomCode, handleCloseJoin }) => {
   const navigate = useNavigate();
 
   const [autoPickup, setAutoPickup] = useState(true);
-  const [publicGame, setPublicGame] = useState(false);
-  const [turnTimeout, setTurnTimeout] = useState(5);
+  // const [publicGame, setPublicGame] = useState(false);
+  const [turnTimeout, setTurnTimeout] = useState(300);
   const [maxPlayers, setMaxPlayers] = useState(4);
 
-  const handleCreateGame = () => {
+  const handleCreateGame = async () => {
+    console.log(turnTimeout, "turn timeout");
+    console.log(roomCode, "room code");
+    const host = {
+      username,
+      turnOrder: 1,
+    };
+    console.log(host, "host");
     const game = {
       autoPickup,
-      publicGame,
       turnTimeout,
       maxPlayers,
-      host,
       roomCode,
     };
-    console.log("Create game:", game);
+
+    const { data: newRoom } = await axios.post("/api/gameRoom", {
+      gameRoom: game,
+      player: host,
+    });
+
+    console.log(newRoom);
     navigate(`/${roomCode}`);
   };
 
@@ -41,8 +53,8 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
               className="radio"
               type="radio"
               name="timeout"
-              value={3}
-              checked={turnTimeout === 3}
+              value={180}
+              checked={turnTimeout === 160}
             />
             <label htmlFor="3">3 Minutes</label>
           </div>
@@ -51,8 +63,8 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
               className="radio"
               type="radio"
               name="timeout"
-              value={5}
-              checked={turnTimeout === 5}
+              value={300}
+              checked={turnTimeout === 300}
             />
             <label htmlFor="5">5 Minutes</label>
           </div>
@@ -61,8 +73,8 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
               className="radio"
               type="radio"
               name="timeout"
-              value={10}
-              checked={turnTimeout === 10}
+              value={600}
+              checked={turnTimeout === 600}
             />
             <label htmlFor="10">10 Minutes</label>
           </div>
@@ -116,7 +128,7 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
               onChange={() => setAutoPickup(!autoPickup)}
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="public">Public Game</label>
             <input
               type="checkbox"
@@ -124,7 +136,7 @@ const CreateGame = ({ host, roomCode, handleCloseJoin }) => {
               checked={publicGame}
               onChange={() => setPublicGame(!publicGame)}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div>
